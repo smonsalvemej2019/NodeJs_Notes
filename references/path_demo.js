@@ -23,3 +23,5 @@ console.log(path.parse(__filename));
 console.log(path.join(__dirname, 'test', 'hello.html'))
 //join helps when dealing with different delimiters 
 //( '/' on mac/linux, '\' on win)
+
+//for more, check documentation
