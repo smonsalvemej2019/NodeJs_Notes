@@ -1,0 +1,1 @@
+Hello from a file created with fs node! this text is appended with append file!

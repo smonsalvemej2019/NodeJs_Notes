@@ -1,0 +1,28 @@
+npm (node package manager)
+we manage our modules trough npm
+using the
+
+    'npm init' 
+
+command, npm will create a json file with information 
+about our projects and the modules it depends on.
+Adding new modules will automatically add the name of that module under dependencies 
+within our json file. There is dev only dependencies as well used only during development.
+
+for ex nodemon (dependency used to prevent constant server restart)
+
+we can install development only dependencies by using the command
+
+npm install -D dependenciesName
+
+the npm_modules file is not passed to a remote server. The package.json file
+will keep track of all dependencies needed. If we delete the nodes_modules file, 
+we can easily just reinstall all needed dependencies by simply using 
+
+npm install 
+
+command
+the package-lock.json will help keep track of dependencies and npm will download 
+all of them
+
+check the index file for more notes

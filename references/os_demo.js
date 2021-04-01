@@ -1,0 +1,19 @@
+//demo on the os system core module
+//it mostly provides information on the system
+const os = require('os');
+
+//we can get the platform we are currently using...
+console.log('\nOS platform:',os.platform());
+//cpu architecture...
+console.log('\nCPU architecture:',os.arch());
+//core cpu info...
+console.log('\ncpu information:\n',os.cpus());
+//free memory...
+console.log('\nfree memory:',os.freemem());
+//and total memory...
+console.log('\ntotal memory:',os.totalmem());
+//home directory...
+console.log('\nHome dir:',os.homedir());
+//and uptime
+console.log('\nUptime:',os.uptime());
+//and more...(check documentation)
