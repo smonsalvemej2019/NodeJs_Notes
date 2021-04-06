@@ -7,30 +7,103 @@
 
 console.log('Hello from nodeJs!!!');
 
-//most of the time we will be creating new modules(files) and importing functions 
-//classes, etc
+//lets create our own usable server!!
+//lets apply what we have learned so far
+const http = require('http');
+const path = require('path');
+const fs = require('fs');
+const { RSA_NO_PADDING, RSA_PSS_SALTLEN_DIGEST } = require('constants');
 
-//take a look at the person.js file
+const server = http.createServer((req,res)=>{
+    console.log(req.url);
+    /*if(req.url === '/')
+    {//req will be able to see the url
+        fs.readFile(path.join(__dirname, 'public', 'index.html'), (error,content) =>{
+            
+            if (error) throw error;
+            res.setHeader('Content-Type', 'text/html');//we can set a header for the html file
+            res.end(content);//when the request end it will load this html
 
-//lets make an import
+        });
+    }
+    if(req.url === '/about'){//req will be able to see the url
+        fs.readFile(path.join(__dirname, 'public', 'about.html'), (error,content) =>{
+            
+            if (error) throw error;
+            res.setHeader('Content-Type', 'text/html');//we can set a header for the html file
+            res.end(content);//when the request end it will load this html
 
-const person = require('./person')//require will bring any file or preinstalled module
-//because we are dealing with a file we have to add './' (current dir) 
+        });
+    }
+    if(req.url === '/api/users')
+    {
+        const user = 
+        [
+            {name:'Santiago',age: 23},
+            {name:'Matthew',age:21}
+        ]
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify(user));
+    }*/
 
-console.log('\nThe following is data from an import: ');
-console.log('\nHello ' + person.name + ' your age is ' + person.age + '\nSay Hello from another file!');
+    //Lets build our filepath
+    let filePath = path.join(__dirname, 'public', req.url === '/' ? 'index.html' : req.url);
 
-const student = require('./student');
+    //extension of file
+    let extname = path.extname(filePath);
 
-var student1 = new student('santiago',23,3.45);
+    //default content type
+    let contentType = 'text/html';
 
-student1.greeting();
+    //check content type
+    switch(extname){
+        case '.js':
+            contentType = 'text/javascript';
+            break;
+        case '.css':
+            contentType = 'text/css';
+            break;
+        case '.json':
+            contentType = 'application/json';
+            break;
+        case '.png':
+            contentType = 'image/png';
+            break;
+        case '.jpg':
+            contentType = 'image/jpg';
+            break;
+    }
+    
+    //read file
 
-//lets call our logger
-const Logger = require('./logger');
+    fs.readFile(filePath, (error,content)=>{
 
-const logger = new Logger();
+        if(error)
+        {
+            if(error.code = 'ENOENT')
+            {
+                //page not found
+                fs.readFile(path.join(__dirname,'public','404.html'),(error,content)=>
+                {
+                    res.writeHead(404,{'Content-Type':'text/html'});
+                    res.end(content, 'utf-8');
+                });
+            }else
+            {
+                //server error
+                res.writeHead(500);
+                res.end(`Server Error: ${error.code}`);
+            }
+        }else{
+            //success
+            res.writeHead(200,{'Content-Type':contentType});
+            res.end(content, 'utf-8')
+        }
+    })
 
-logger.on('message', (data)=>{console.log('Called listener',data)});
-logger.log('Hello World');
-logger.log('It is Working!!');
+})
+//process.env.port will be the port other environments are using
+const PORT = process.env.PORT || 5000;
+
+//like our example before, our server has to listen to a port
+server.listen(PORT, () => console.log(`Server running on port ${PORT}...`));

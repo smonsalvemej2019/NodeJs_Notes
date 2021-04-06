@@ -25,4 +25,9 @@ command
 the package-lock.json will help keep track of dependencies and npm will download 
 all of them
 
+we can write scripts for our environment 
+We wrote a script in our package.json that allows us to use nodemon 
+because nodemon is not installed globally, it is better to write a script for it
+now we can type "npm run dev(the name of our script)" and it will use nodemon
+
 check the index file for more notes

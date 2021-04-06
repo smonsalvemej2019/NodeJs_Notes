@@ -10,7 +10,7 @@ class student
 
     greeting()
     {
-        console.log('Hello from the student.js module! My name is' , this.name);
+        console.log('\nHello from the student.js module! My name is' , this.name);
         console.log('I am ', this.age, 'years old, and my gpa is a', this.gpa);
     }
 
