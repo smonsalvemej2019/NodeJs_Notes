@@ -1,2 +1,5 @@
 node_modules/
 jsconfig.json
+references/
+export_require_ex/
+logger_ex/
